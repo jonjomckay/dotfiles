@@ -1,0 +1,8 @@
+[user]
+	email = jonjo@jonjomckay.com
+	name = Jonjo McKay
+	signingkey = C4CC649D7F58611D
+[commit]
+	gpgsign = true
+[url "git@gitlab.manywho.net:"]
+	insteadOf = https://gitlab.manywho.net/

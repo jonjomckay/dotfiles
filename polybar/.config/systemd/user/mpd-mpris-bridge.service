@@ -1,0 +1,13 @@
+[Unit]
+Description=MPD-MPRIS Bridge
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker kill %N
+ExecStartPre=-/usr/bin/docker rm %N
+ExecStartPre=/usr/bin/docker pull jonjomckay/mpd-mpris-bridge
+ExecStart=/usr/bin/docker run --rm --name %N -p 6600:6600 --env DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/%U/bus" --volume /run/user/%U/bus:/run/user/%U/bus --user %U:%G jonjomckay/mpd-mpris-bridge
+
+[Install]
+WantedBy=default.target
