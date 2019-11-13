@@ -24,6 +24,12 @@ source $ZSH/oh-my-zsh.sh
 
 [ -s "${HOME}/.jabba/jabba.sh" ] && source "${HOME}/.jabba/jabba.sh"
 
+# Start GNOME Keyring, if applicable
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
+
 # Add zplugin support
 source "${HOME}/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
