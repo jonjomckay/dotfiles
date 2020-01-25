@@ -40,3 +40,6 @@ zplugin load zsh-users/zsh-autosuggestions
 zplugin load zsh-users/zsh-syntax-highlighting
 
 eval "$(starship init zsh)"
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
