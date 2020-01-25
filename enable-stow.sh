@@ -6,6 +6,7 @@ apps=(
     git
     openbox
     polybar
+    xfce4-terminal
     zsh
 )
 
