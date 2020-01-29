@@ -4,8 +4,10 @@ set -e
 
 apps=(
     git
+    i3
     openbox
     polybar
+    rofi
     xfce4-terminal
     zsh
 )
