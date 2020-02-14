@@ -3,6 +3,7 @@
 set -e
 
 apps=(
+    dunst
     git
     i3
     kitty
