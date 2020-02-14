@@ -5,6 +5,7 @@ set -e
 apps=(
     git
     i3
+    kitty
     openbox
     polybar
     rofi
