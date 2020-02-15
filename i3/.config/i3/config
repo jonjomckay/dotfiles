@@ -30,6 +30,8 @@ exec --no-startup-id xinput set-prop 11 325 0.65
 exec --no-startup-id $HOME/.screenlayout/office.sh
 exec --no-startup-id setxkbmap -layout gb
 
+exec --no-startup-id synclient RightButtonAreaLeft=2500 RightButtonAreaTop=2500
+
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
