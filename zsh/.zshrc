@@ -52,3 +52,4 @@ eval "$(starship init zsh)"
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin
 
+alias l='lsd -l'
