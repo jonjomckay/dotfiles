@@ -124,11 +124,9 @@ window_padding_width 0 10
 
   services.picom.enable = true;
   services.picom.fade = true;
-  # services.picom.fadeSteps = [ "0.06" "0.06" ];
   services.picom.inactiveOpacity = "0.85";
   services.picom.noDockShadow = false;
   services.picom.shadow = true;
-  # services.picom.shadowOffsets = [ -6 -6 ];
   services.picom.shadowOpacity = ".75";
   services.picom.vSync = true;
 
@@ -139,43 +137,17 @@ window_padding_width 0 10
     pulseSupport = true;
   };
   services.polybar.extraConfig = ''
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
-
 [colors]
-
 background = ''${xrdb:color0:#222}
 color1 = ''${xrdb:color2}
 color2 = ''${xrdb:color4}
 color3 = ''${xrdb:color6}
-
-;  _                    
-; | |__   __ _ _ __ ___ 
-; | '_ \ / _` | '__/ __|
-; | |_) | (_| | |  \__ \
-; |_.__/ \__,_|_|  |___/
 
 [bar/base]
 font-0=DejaVu Sans Mono:size=10:antialias=true;3
 font-1=FontAwesome5Free:style=Regular:size=9:antialias=true;3
 font-2=FontAwesome5Free:style=Solid:size=9:antialias=true;3
 font-3=IPAGothic:style=Regular:size=11:antialias=true;3
-
 
 height = 32
 ;radius = 10
@@ -190,17 +162,11 @@ offset-y = 10
 [bar/i3]
 inherit = bar/base
 width = 35%
-
 foreground = ''${colors.color1}
-
 offset-x = 15
-
-
 modules-left = i3 wsnumber xwindow
-
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
-
 
 [bar/music]
 inherit = bar/base
@@ -210,26 +176,16 @@ width = 28%
 foreground = ''${colors.color2}
 offset-x = 55.5%
 
-; Spotify (script at github.com/dietervanhoof/polybar-spotify-controls)
-;modules-left = previous playpause next spotify
 ; Mpd
 modules-left = mpd
 
 [bar/tray]
 inherit = bar/base
 width = 300
-
 padding-right = 0
 offset-x = 2245
-
 modules-left = pulseaudio time power
 
-;                      _       _           
-;  _ __ ___   ___   __| |_   _| | ___  ___ 
-; | '_ ` _ \ / _ \ / _` | | | | |/ _ \/ __|
-; | | | | | | (_) | (_| | |_| | |  __/\__ \
-; |_| |_| |_|\___/ \__,_|\__,_|_|\___||___/
-                                         
 [module/wsnumber]
 type = custom/script
 exec = ~/.config/polybar/themes-blocks/get_workspace
@@ -241,7 +197,6 @@ format-foreground = ''${colors.background}
 format-background = ''${colors.color1}
 scroll-up = i3 workspace next
 scroll-down = i3 workspace prev
-
 
 [module/xwindow]
 type = internal/xwindow
@@ -352,55 +307,10 @@ ramp-volume-0 = ""
 ramp-volume-1 = ""
 ramp-volume-2 = ""
 
-
 label-muted = "    "   
 label-muted-background = ''${colors.background}
 label-muted-foreground = ''${colors.color3}
 label-muted-padding = 2
-
-;Spotify modules
-
-[module/previous]
-type = custom/script
-format-font = 3
-format-padding = 2
-format-background = ''${colors.color2}
-format-foreground = ''${colors.background}
-exec = echo "  "
-exec-if = "pgrep spotify"
-click-left = "playerctl previous"
-
-
-[module/next]
-type = custom/script
-format-font = 3
-format-padding = 2
-format-background = ''${colors.color2}
-format-foreground = ''${colors.background}
-exec = echo "  "
-exec-if = "pgrep spotify"
-click-left = "playerctl next"
-
-[module/playpause]
-type = custom/script
-exec = spotifystatus
-exec-if = "pgrep spotify"
-format-font = 3
-format-background = ''${colors.color2}
-format-foreground = ''${colors.background}
-format-padding = 1
-tail = true
-interval = 0
-click-left = "playerctl -p spotify play-pause"
-
-
-[module/spotify]
-type = custom/script
-exec = playerctl -p spotify metadata --format '{{artist}}: {{title}}'
-exec-if = "pgrep spotify"
-format-padding = 2
-tail = true
-interval = 1
 
 [settings]
 screenchange-reload = true
@@ -413,8 +323,6 @@ screenchange-reload = true
 [global/wm]
 margin-top = 0
 margin-bottom = 0
-
-; vim:ft=dosini
   '';
   services.polybar.script = ''
 # Terminate already running bar instances
@@ -423,11 +331,9 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-# polybar -rq dummy & 
 polybar -rq music &
 polybar -rq tray &
 polybar -rq i3 &
-
   '';
 
   services.syncthing.enable = true;
