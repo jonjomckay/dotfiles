@@ -14,6 +14,8 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.feh.enable = true;
+
   programs.firefox = {
     enable = true;
   };
@@ -411,6 +413,11 @@ polybar -rq i3 &
   };
   xsession.windowManager.i3.config.gaps.top = 40;
   xsession.windowManager.i3.config.modifier = "Mod4";
+  xsession.windowManager.i3.config.startup = [
+    {
+      command = "--no-startup-id feh --bg-scale ${./blue-dark-yellow-abstract-artistic-4k-hw-2560x1080.jpg}";
+    }
+  ];
   xsession.windowManager.i3.config.terminal = "kitty";
   xsession.windowManager.i3.config.window.commands = [
     {
