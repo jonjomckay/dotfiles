@@ -76,6 +76,42 @@ color15      #ffffff
   programs.zsh.enableCompletion = true;
   programs.zsh.oh-my-zsh.enable = true;
 
+  services.dunst.enable = true;
+  services.dunst.settings = {
+    global = {
+      geometry = "300x50-15+49";
+      frame_width = 3;
+      frame_color = "#8EC07C";
+      horizontal_padding = 6;
+      line_height = 3;
+      padding = 6;
+      separator_color = "frame";
+      separator_height = 2;
+      transparency = 5;
+    };
+
+    urgency_low = {
+      frame_color = "#3B7C87";
+      foreground = "#3B7C87";
+      background = "#191311";
+      timeout = 4;
+    };
+
+    urgency_normal = {
+      frame_color = "#5B8234";
+      foreground = "#5B8234";
+      background = "#191311";
+      timeout = 6;
+    };
+
+    urgency_critical = {
+     frame_color = "#B7472A";
+      foreground = "#B7472A";
+      background = "#191311";
+      timeout = 8;
+    };
+  };
+
   services.gpg-agent = {
     enable = true;
   };
