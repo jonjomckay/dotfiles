@@ -3,7 +3,7 @@ self: super: {
     name = "desktop";
 
     paths = with self.pkgs; [
-      firefox
+      # Nothing yet
     ];
   };
 }
