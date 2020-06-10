@@ -327,6 +327,8 @@ margin-top = 0
 margin-bottom = 0
   '';
   services.polybar.script = ''
+PATH=$PATH:/run/current-system/sw/bin
+
 # Terminate already running bar instances
 killall -q polybar
 
@@ -335,7 +337,9 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 polybar -rq music &
 polybar -rq tray &
-polybar -rq i3 &
+
+# Wait until i3 has started
+sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
   '';
 
   services.syncthing.enable = true;
