@@ -1,0 +1,5 @@
+#!/bin/sh
+# depends on `jq'
+i3-msg -t get_workspaces \
+  | $HOME/.nix-profile/bin/jq '.[] | select(.focused==true).name' \
+  | /run/current-system/sw/bin/cut -d"\"" -f2

@@ -1,0 +1,1 @@
+https://github.com/ngynLk/polybar-themes/tree/86025e964ebf7115809c823dc4da8ea04891eba0/blocks

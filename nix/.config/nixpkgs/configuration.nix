@@ -114,6 +114,7 @@
     enable = true;
     autoLogin.enable = true;
     autoLogin.user = "jonjo";
+    background = "${pkgs.nixos-artwork.wallpapers.simple-light-gray}/share/artwork/gnome/nix-wallpaper-simple-light-gray.png";
   };
 
   services.xserver.desktopManager.session = [
