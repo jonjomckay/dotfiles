@@ -169,7 +169,7 @@ color15      #ffffff
 
   xsession.windowManager.i3.config.keybindings = let modifier = config.xsession.windowManager.i3.config.modifier;
   in lib.mkOptionDefault {
-    "${modifier}+space" = "exec rofi -show combi";
+    "${modifier}+space" = "exec rofi -show drun";
   };
 
   # This value determines the Home Manager release that your
