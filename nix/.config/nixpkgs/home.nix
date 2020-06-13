@@ -421,6 +421,9 @@ sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
     {
       command = "--no-startup-id feh --bg-fill ${./blue-dark-yellow-abstract-artistic-4k-hw.png}";
     }
+    {
+      command = "--no-startup-id i3-msg workspace 1";
+    }
   ];
   xsession.windowManager.i3.config.terminal = "kitty";
   xsession.windowManager.i3.config.window.commands = [
