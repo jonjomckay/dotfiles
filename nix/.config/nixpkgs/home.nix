@@ -419,7 +419,7 @@ sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
   xsession.windowManager.i3.config.modifier = "Mod4";
   xsession.windowManager.i3.config.startup = [
     {
-      command = "--no-startup-id feh --bg-scale ${./blue-dark-yellow-abstract-artistic-4k-hw-2560x1080.jpg}";
+      command = "--no-startup-id feh --bg-fill ${./blue-dark-yellow-abstract-artistic-4k-hw.png}";
     }
   ];
   xsession.windowManager.i3.config.terminal = "kitty";
