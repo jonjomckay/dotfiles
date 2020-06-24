@@ -452,6 +452,7 @@ sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
 
   xsession.windowManager.i3.config.keybindings = let modifier = config.xsession.windowManager.i3.config.modifier;
   in lib.mkOptionDefault {
+    "${modifier}+0" = "workspace number 1";
     "${modifier}+space" = "exec rofi -show drun";
   };
 
