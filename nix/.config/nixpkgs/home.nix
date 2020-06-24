@@ -11,6 +11,13 @@
     pkgs.vscodium
   ];
 
+  # These are required for non-NixOS installations
+  home.sessionVariables.FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+  home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
+  home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
+  fonts.fontconfig.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -327,7 +334,7 @@ margin-top = 0
 margin-bottom = 0
   '';
   services.polybar.script = ''
-PATH=$PATH:/run/current-system/sw/bin
+PATH=$PATH:/run/current-system/sw/bin:/bin
 
 # Terminate already running bar instances
 killall -q polybar
