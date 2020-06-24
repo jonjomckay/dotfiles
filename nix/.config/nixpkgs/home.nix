@@ -263,7 +263,7 @@ label-time-background = ''${colors.background}
 label-time-padding = 1
 
 format-offline = <label-offline>
-label-offline =  offline
+label-offline =   No music playing
 format-offline-padding = 2
 format-offline-foreground = ''${colors.color2}
 format-offline-background = ''${colors.background}
