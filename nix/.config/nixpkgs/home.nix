@@ -96,6 +96,8 @@ window_padding_width 0 10
   services.dunst.enable = true;
   services.dunst.settings = {
     global = {
+      alignment = "center";
+      format = "<b>%s</b>\n%b";
       geometry = "300x50-15+49";
       frame_width = 3;
       frame_color = "#8EC07C";
@@ -105,6 +107,7 @@ window_padding_width 0 10
       separator_color = "frame";
       separator_height = 2;
       transparency = 5;
+      word_wrap = "yes";
     };
 
     urgency_low = {
