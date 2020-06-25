@@ -3,11 +3,13 @@
 {
   home.keyboard.layout = "gb";
   home.packages = [
+    pkgs.dejavu_fonts
     pkgs.fira-code
     pkgs.font-awesome
     pkgs.ipafont
     pkgs.jq
     pkgs.keepassxc
+    pkgs.networkmanager-openvpn
     pkgs.vscodium
   ];
 
@@ -136,6 +138,10 @@ window_padding_width 0 10
     enable = true;
   };
 
+  services.network-manager-applet = {
+    enable = true;
+  };
+
   services.picom.enable = true;
   services.picom.fade = true;
   services.picom.inactiveOpacity = "0.85";
@@ -195,10 +201,35 @@ modules-left = mpd
 
 [bar/tray]
 inherit = bar/base
-width = 300
+width = 400
 padding-right = 0
-offset-x = 2245
+offset-x = 2145
 modules-left = pulseaudio time power
+
+tray-position = right
+
+; If true, the bar will not shift its
+; contents when the tray changes
+tray-detached = false
+
+; Tray icon max size
+tray-maxsize = 16
+
+; Background color for the tray container 
+; ARGB color (e.g. #f00, #ff992a, #ddff1023)
+; By default the tray container will use the bar
+; background color.
+tray-background = ''${colors.background}
+
+; Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
+tray-offset-x = 0
+tray-offset-y = 0
+
+; Pad the sides of each tray icon
+tray-padding = 0
+
+; Scale factor for tray clients
+tray-scale = 1.0
 
 [module/wsnumber]
 type = custom/script
