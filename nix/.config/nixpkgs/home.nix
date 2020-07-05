@@ -79,15 +79,15 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
-        "format": "{name}: {icon}",
+        "format": "{name}:  {icon}",
         "format-icons": {
             "1": "",
             "2": "",
-            "3": "",
-            "4": "",
-            "8": "",
-            "9": "",
-            "10": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
             "urgent": "",
             "focused": "",
             "default": ""
@@ -126,8 +126,9 @@
 }
 
 #workspaces button {
-  padding: 1px 5px 0 5px;
-  margin: 15px 0 0 0;
+  border-radius: 10px;
+  padding: 1px 8px;
+  margin: 15px 5px 0 0;
   background-color: transparent;
   color: #ffffff;
   border-bottom: 3px solid transparent;
