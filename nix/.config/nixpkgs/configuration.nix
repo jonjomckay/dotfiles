@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, python, ... }:
 
 {
   imports =
@@ -110,22 +110,13 @@
   # services.xserver.displayManager.sddm.enable = true;
   # services.xserver.desktopManager.plasma5.enable = true;
 
-  services.xserver.displayManager.lightdm = {
+  services.xserver.displayManager.sessionPackages = [ pkgs.sway ];
+  services.xserver.displayManager.gdm = {
     enable = true;
-    autoLogin.enable = true;
-    autoLogin.user = "jonjo";
-    background = toString ./blue-dark-yellow-abstract-artistic-4k-hw-2560x1080.jpg;
+    # autoLogin.enable = true;
+    # autoLogin.user = "jonjo";
+    wayland = true;
   };
-
-  services.xserver.desktopManager.session = [
-    {
-      name = "home-manager";
-      start = ''
-        ${pkgs.runtimeShell} $HOME/.hm-xsession &
-        waitPID=$!
-      '';
-    }
-  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jonjo = {

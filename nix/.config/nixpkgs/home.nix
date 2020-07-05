@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [ ./waybar.nix ];
+
   home.keyboard.layout = "gb";
   home.packages = [
     pkgs.dejavu_fonts
@@ -10,8 +12,140 @@
     pkgs.jq
     pkgs.keepassxc
     pkgs.networkmanager-openvpn
+    pkgs.python38
+    pkgs.python38Packages.i3ipc
     pkgs.vscodium
   ];
+
+  services.waybar.enable = true;
+  services.waybar.package = pkgs.waybar.override {
+    pulseSupport = true;
+  };
+  services.waybar.config = ''
+{
+    "layer": "top",
+    "modules-left": ["sway/workspaces"],
+    "modules-right": ["temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "clock"],
+    "clock": {
+        "format": "{:%b %d %Y, %H:%M:%S}",
+        "interval": 1,
+        "tooltip": false
+    },
+    "temperature#cpu": {
+      "interval": 2,
+      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+      "critical-threshold": 80,
+      "format-critical": "CPU: {temperatureC}°C ",
+      "format": "CPU: {temperatureC}°C  "
+    },
+    "temperature#gpu": {
+      "interval": 2,
+      "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+      "critical-threshold": 80,
+      "format-critical": "GPU: {temperatureC}°C ",
+      "format": "GPU: {temperatureC}°C  "
+    },
+    "disk": {
+      "interval": 10,
+      "format": "{percentage_used}%  ",
+      "path": "/"
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "{}%  ",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 2,
+        "format": "{}%  ",
+        "max-length": 10
+    },
+    "pulseaudio": {
+        "format": "{volume}%  {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pavucontrol"
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}: {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    }
+}
+  '';
+  services.waybar.styles = ''
+* {
+  background: none;
+  font-size: 12px;
+}
+
+#temperature, #disk, #cpu, #memory, #pulseaudio, #clock {
+  background-color: rgba(0,0,0,.7);
+  border-radius: 10px;
+  color: #fff;
+  padding: 8px 12px;
+  margin: 15px 10px 0 0;
+}
+
+#workspaces {
+  margin-left: 15px;
+}
+
+#clock {
+  margin-right: 15px;
+}
+
+#temperature.critical {
+  color: #ff0000;
+}
+
+#pulseaudio {
+  background-color: rgba(0,0,0,.7);
+}
+
+#workspaces button {
+  padding: 1px 5px 0 5px;
+  margin: 15px 0 0 0;
+  background-color: transparent;
+  color: #ffffff;
+  border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inherit;
+}
+
+#workspaces button.focused {
+    background-color: rgba(0,0,0,.7);
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+  '';
 
   # These are required for non-NixOS installations
   home.sessionVariables.FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
@@ -141,250 +275,7 @@ window_padding_width 0 10
   services.network-manager-applet = {
     enable = true;
   };
-
-  services.picom.enable = true;
-  services.picom.fade = true;
-  services.picom.inactiveOpacity = "0.85";
-  services.picom.noDockShadow = false;
-  services.picom.shadow = true;
-  services.picom.shadowOpacity = ".75";
-  services.picom.vSync = true;
-
-  services.polybar.enable = true;
-  services.polybar.package = pkgs.polybar.override {
-    i3GapsSupport = true;
-    mpdSupport = true;
-    pulseSupport = true;
-  };
-  services.polybar.extraConfig = ''
-[colors]
-background = ''${xrdb:color0:#222}
-color1 = ''${xrdb:color2}
-color2 = ''${xrdb:color4}
-color3 = ''${xrdb:color6}
-
-[bar/base]
-font-0=DejaVu Sans Mono:size=10:antialias=true;3
-font-1=FontAwesome5Free:style=Regular:size=9:antialias=true;3
-font-2=FontAwesome5Free:style=Solid:size=9:antialias=true;3
-font-3=IPAGothic:style=Regular:size=11:antialias=true;3
-
-height = 32
-;radius = 10
-; TODO: Get this to work with shadows... it uses the background color for the bits outside the radius :(
-
-background = ''${colors.background}
-override-redirect=true
-offset-y = 10
-
-;wm-restack = i3
-
-[bar/i3]
-inherit = bar/base
-width = 35%
-foreground = ''${colors.color1}
-offset-x = 15
-modules-left = i3 wsnumber xwindow
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
-[bar/music]
-inherit = bar/base
-enable-ipc = true
-width = 28%
-
-foreground = ''${colors.color2}
-offset-x = 55.5%
-
-; Mpd
-modules-left = mpd
-
-[bar/tray]
-inherit = bar/base
-width = 400
-padding-right = 0
-offset-x = 2145
-modules-left = pulseaudio time power
-
-tray-position = right
-
-; If true, the bar will not shift its
-; contents when the tray changes
-tray-detached = false
-
-; Tray icon max size
-tray-maxsize = 16
-
-; Background color for the tray container 
-; ARGB color (e.g. #f00, #ff992a, #ddff1023)
-; By default the tray container will use the bar
-; background color.
-tray-background = ''${colors.background}
-
-; Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
-tray-offset-x = 0
-tray-offset-y = 0
-
-; Pad the sides of each tray icon
-tray-padding = 0
-
-; Scale factor for tray clients
-tray-scale = 1.0
-
-[module/wsnumber]
-type = custom/script
-exec = ~/.config/polybar/themes-blocks/get_workspace
-tail = true
-interval = 0
-format = "<label>  "
-format-padding = 0
-format-foreground = ''${colors.background}
-format-background = ''${colors.color1}
-scroll-up = i3 workspace next
-scroll-down = i3 workspace prev
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:100:...%
-label-foreground = ''${colors.color1} 
-label-background = ''${colors.background} 
-label-padding = 2
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-format-padding = 1
-format-background = ''${colors.color1}
-format-foreground = ''${colors.background}
-index-sort = true
-wrapping-scroll = false
-
-enable-click = true
-reverse-scroll = false
-
-label-focused = 
-label-focused-font = 3
-label-focused-foreground = ''${colors.background}
-label-focused-padding = 1
-
-label-unfocused = 
-label-unfocused-font = 2
-label-unfocused-padding = 1
-label-unfocused-foreground = ''${colors.background}
-
-label-urgent = 
-label-urgent-font = 1
-label-urgent-padding = 1
-label-urgent-foreground = ''${colors.background}
-
-;ws-icon-0 = 1;
-;ws-icon-1 = 2;
-;ws-icon-2 = 3;
-;ws-icon-9 = 10;
-;ws-icon-default = 
-
-[module/power]
-type = custom/text
-content = 
-content-foreground = ''${colors.color3}
-click-left = powermenu
-content-padding = 2
-
-[module/mpd]
-type = internal/mpd
-host = 127.0.0.1
-port = 6600
-format-online =  <icon-prev> <toggle> <icon-next>  <label-song><label-time>
-format-online-padding = 2
-format-online-background = ''${colors.color2}
-format-online-foreground = ''${colors.background}
-label-song-foreground = ''${colors.color2}
-label-song-background = ''${colors.background}
-label-song-padding = 2
-label-time-foreground = ''${colors.color2}
-label-time-background = ''${colors.background}
-label-time-padding = 1
-
-format-offline = <label-offline>
-label-offline =   No music playing
-format-offline-padding = 2
-format-offline-foreground = ''${colors.color2}
-format-offline-background = ''${colors.background}
-
-bar-progress-width = 35
-bar-progress-indicator = |
-bar-progress-fill = ─
-bar-progress-empty = ─
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 38
-label-song-ellipsis = true
-
-[module/time]
-type = internal/date
-interval = 1
-format-margin = 2
-
-time = "%H:%M:%S"
-date = "%d %b"
-
-label = %date%, %time%
-label-foreground = ''${colors.color3}
-label-background = ''${colors.background}
-
-[module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume-padding = 2
-format-volume = <ramp-volume> <label-volume>
-label-volume = %percentage:3:3%%
-format-volume-background = ''${colors.color3}
-format-volume-foreground = ''${colors.background}
-use-ui-max = false
-interval = 5
-
-ramp-volume-0 = ""
-ramp-volume-1 = ""
-ramp-volume-2 = ""
-
-label-muted = "    "   
-label-muted-background = ''${colors.background}
-label-muted-foreground = ''${colors.color3}
-label-muted-padding = 2
-
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = true
-
-[global/wm]
-margin-top = 0
-margin-bottom = 0
-  '';
-  services.polybar.script = ''
-PATH=$PATH:/run/current-system/sw/bin:/bin
-
-# Terminate already running bar instances
-killall -q polybar
-
-# Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-
-polybar -rq music &
-polybar -rq tray &
-
-# Wait until i3 has started
-sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
-  '';
-
+  
   services.syncthing.enable = true;
 
   xresources.extraConfig = ''
@@ -426,65 +317,61 @@ sh -c "while ! pgrep -u $UID -x i3; do sleep 1; done; polybar -rq i3 &" &
 *.color15:      #ffffff
   '';
 
-  xsession.enable = true;
-  xsession.scriptPath = ".hm-xsession";
-  xsession.windowManager.i3.enable = true;
-  xsession.windowManager.i3.config.bars = [];
-  xsession.windowManager.i3.config.colors.focused = {
+  wayland.windowManager.sway.enable = true;
+  wayland.windowManager.sway.config.bars = [];
+  wayland.windowManager.sway.config.colors.focused = {
      border = "#007030";
      background = "#007030";
      childBorder = "#285577";
      text = "#ffffff";
      indicator = "2b2b2b";
   };
-  xsession.windowManager.i3.config.colors.focusedInactive = {
+  wayland.windowManager.sway.config.colors.focusedInactive = {
      border = "#888888";
      background = "#2b2b2b";
      childBorder = "#5f676a";
      text = "#ffffff";
      indicator = "2b2b2b";
   };
-  xsession.windowManager.i3.config.colors.unfocused = {
+  wayland.windowManager.sway.config.colors.unfocused = {
      border = "#888888";
      background = "#2b2b2b";
      childBorder = "#222222";
      text = "#ffffff";
      indicator = "2b2b2b";
   };
-  xsession.windowManager.i3.config.colors.urgent = {
+  wayland.windowManager.sway.config.colors.urgent = {
      border = "#900000";
      background = "#900000";
      childBorder = "#900000";
      text = "#ffffff";
      indicator = "2b2b2b";
   };
-  xsession.windowManager.i3.config.gaps.top = 40;
-  xsession.windowManager.i3.config.modifier = "Mod4";
-  xsession.windowManager.i3.config.startup = [
+  wayland.windowManager.sway.config.gaps.inner = 15;
+  wayland.windowManager.sway.config.gaps.top = 0;
+  wayland.windowManager.sway.config.input = {
+    "*" = {
+      xkb_layout = "gb";
+    };
+  };
+  wayland.windowManager.sway.config.modifier = "Mod4";
+  wayland.windowManager.sway.config.output = {
+    "*" = {
+      bg = "${./anime-minimalism-4k-4e.jpg} fill";
+    };
+  };
+  wayland.windowManager.sway.config.startup = [
     {
-      command = "--no-startup-id feh --bg-fill ${./blue-dark-yellow-abstract-artistic-4k-hw.png}";
+      command = "swaymsg workspace 1";
     }
     {
-      command = "--no-startup-id i3-msg workspace 1";
-    }
-  ];
-  xsession.windowManager.i3.config.terminal = "kitty";
-  xsession.windowManager.i3.config.window.commands = [
-    {
-      command = "border pixel 0";
-      criteria = { class = ".*"; };
-    }
-    {
-      command = "gaps inner all set 15";
-      criteria = { class = ".*"; };
-    }
-    {
-      command = "gaps horizontal current minus 10";
-      criteria = { class = ".*"; };
+      command = "${(pkgs.python38.withPackages (ps: [ps.i3ipc])).interpreter} ${./fader.py}";
     }
   ];
+  wayland.windowManager.sway.config.terminal = "kitty";
+  wayland.windowManager.sway.config.window.border = 0;
 
-  xsession.windowManager.i3.config.keybindings = let modifier = config.xsession.windowManager.i3.config.modifier;
+  wayland.windowManager.sway.config.keybindings = let modifier = config.wayland.windowManager.sway.config.modifier;
   in lib.mkOptionDefault {
     "${modifier}+0" = "workspace number 1";
     "${modifier}+space" = "exec rofi -show drun";
