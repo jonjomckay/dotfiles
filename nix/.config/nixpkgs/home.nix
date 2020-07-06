@@ -183,7 +183,10 @@
   programs.keychain.enableXsessionIntegration = true;
 
   programs.kitty.enable = true;
+  programs.kitty.font.name = "Fira Code Retina";
   programs.kitty.extraConfig = ''
+font_size 9.0
+
 foreground   #c5c8c6
 background   #1d1f21
 cursor       #c5c8c6
