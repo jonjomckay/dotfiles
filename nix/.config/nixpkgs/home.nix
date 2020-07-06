@@ -50,47 +50,7 @@
 
   programs.kitty.enable = true;
   programs.kitty.font.name = "Fira Code Retina";
-  programs.kitty.extraConfig = ''
-font_size 9.0
-
-foreground   #c5c8c6
-background   #1d1f21
-cursor       #c5c8c6
-
-! black
-color0       #1d1f21
-color8       #969896
-
-! red
-color1       #f393d4
-color9       #ee7bca
-
-! green
-color2       #82f8b8
-color10      #74faa9
-
-! yellow
-color3       #fff9b2
-color11      #fffaa3
-
-! blue
-color4       #3592f4
-color12      #2b7bf1
-
-! magenta
-color5       #ea60f3
-color13      #e23df0
-
-! cyan
-color6       #67d5fa
-color14      #58cbf9
-
-! white
-color7       #c5c8c6
-color15      #ffffff
-
-window_padding_width 0 10
-  '';
+  programs.kitty.extraConfig = builtins.readFile ./configs/kitty.conf;
 
   programs.rofi.enable = true;
   programs.rofi.font = "hack 10";
@@ -161,44 +121,7 @@ window_padding_width 0 10
   services.waybar.config = builtins.readFile ./configs/waybar.json;
   services.waybar.styles = builtins.readFile ./configs/waybar.css;
 
-  xresources.extraConfig = ''
-! special
-*.foreground:   #c5c8c6
-*.background:   #1d1f21
-*.cursorColor:  #c5c8c6
-
-! black
-*.color0:       #1d1f21
-*.color8:       #969896
-
-! red
-*.color1:       #f393d4
-*.color9:       #ee7bca
-
-! green
-*.color2:       #82f8b8
-*.color10:      #74faa9
-
-! yellow
-*.color3:       #fff9b2
-*.color11:      #fffaa3
-
-! blue
-*.color4:       #3592f4
-*.color12:      #2b7bf1
-
-! magenta
-*.color5:       #ea60f3
-*.color13:      #e23df0
-
-! cyan
-*.color6:       #67d5fa
-*.color14:      #58cbf9
-
-! white
-*.color7:       #c5c8c6
-*.color15:      #ffffff
-  '';
+  xresources.extraConfig = builtins.readFile ./configs/xresources.conf;
 
   wayland.windowManager.sway.enable = true;
   wayland.windowManager.sway.config.bars = [];
