@@ -30,6 +30,61 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.alacritty.enable = true;
+  programs.alacritty.settings = {
+    colors = {
+      primary = {
+        background = "#1d1f21";
+        foreground = "#c5c8c6";
+      };
+
+      cursor = {
+        cursor = "#c5c8c6";
+      };
+
+      normal = {
+        black = "#1d1f21";
+        red = "#f393d4";
+        green = "#82f8b8";
+        yellow = "#fff9b2";
+        blue = "#3592f4";
+        magenta = "#ea60f3";
+        cyan = "#67d5fa";
+        white = "#c5c8c6";
+      };
+
+      bright = {
+        black = "#969896";
+        red = "#ee7bca";
+        green = "#74faa9";
+        yellow = "#fffaa3";
+        blue = "#2b7bf1";
+        magenta = "#e23df0";
+        cyan = "#58cbf9";
+        white = "#ffffff";
+      };
+    };
+
+    font = {
+      size = 9;
+
+      normal = {
+        family = "Fira Code Retina";
+      };
+    };
+
+    scrolling = {
+      history = 100000;
+    };
+
+    window = {
+      padding = {
+        x = 10;
+        y = 10;
+      };
+    };
+  };
+
   programs.feh.enable = true;
 
   programs.firefox = {
@@ -174,7 +229,7 @@
       command = "${(pkgs.python38.withPackages (ps: [ps.i3ipc])).interpreter} ${./fader.py}";
     }
   ];
-  wayland.windowManager.sway.config.terminal = "kitty";
+  wayland.windowManager.sway.config.terminal = "nixGL alacritty";
   wayland.windowManager.sway.config.window.border = 0;
 
   wayland.windowManager.sway.config.keybindings = let modifier = config.wayland.windowManager.sway.config.modifier;
