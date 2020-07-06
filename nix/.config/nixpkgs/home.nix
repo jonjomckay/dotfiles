@@ -5,6 +5,7 @@
 
   home.keyboard.layout = "gb";
   home.packages = [
+    pkgs.bat
     pkgs.dejavu_fonts
     pkgs.fira-code
     pkgs.font-awesome
