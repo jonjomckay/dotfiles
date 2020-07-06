@@ -18,141 +18,6 @@
     pkgs.vscodium
   ];
 
-  services.waybar.enable = true;
-  services.waybar.package = pkgs.waybar.override {
-    pulseSupport = true;
-  };
-  services.waybar.config = ''
-{
-    "layer": "top",
-    "modules-left": ["sway/workspaces"],
-    "modules-right": ["temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "tray", "clock"],
-    "clock": {
-        "format": "{:%b %d %Y, %H:%M:%S}",
-        "interval": 1,
-        "tooltip": false
-    },
-    "temperature#cpu": {
-      "interval": 2,
-      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-      "critical-threshold": 80,
-      "format-critical": "CPU: {temperatureC}°C ",
-      "format": "CPU: {temperatureC}°C  "
-    },
-    "temperature#gpu": {
-      "interval": 2,
-      "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
-      "critical-threshold": 80,
-      "format-critical": "GPU: {temperatureC}°C ",
-      "format": "GPU: {temperatureC}°C  "
-    },
-    "disk": {
-      "interval": 10,
-      "format": "{percentage_used}%  ",
-      "path": "/"
-    },
-    "cpu": {
-        "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
-    },
-    "memory": {
-        "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
-    },
-    "pulseaudio": {
-        "format": "{volume}%  {icon}",
-        "format-bluetooth": "{volume}%  {icon} ",
-        "format-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
-        },
-        "scroll-step": 1,
-        "on-click": "pavucontrol"
-    },
-    "tray": {
-      "icon-size": "21",
-      "spacing": 10
-    },
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": false,
-        "format": "{name}:  {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    }
-}
-  '';
-  services.waybar.styles = ''
-* {
-  background: none;
-  font-size: 12px;
-}
-
-#temperature, #disk, #cpu, #memory, #pulseaudio, #tray, #clock {
-  background-color: rgba(0,0,0,.7);
-  border-radius: 10px;
-  color: #fff;
-  padding: 8px 12px;
-  margin: 15px 10px 0 0;
-}
-
-#workspaces {
-  margin-left: 15px;
-}
-
-#clock {
-  margin-right: 15px;
-}
-
-#temperature.critical {
-  color: #ff0000;
-}
-
-#pulseaudio {
-  background-color: rgba(0,0,0,.7);
-}
-
-#workspaces button {
-  border-radius: 10px;
-  padding: 1px 8px;
-  margin: 15px 5px 0 0;
-  background-color: transparent;
-  color: #ffffff;
-  border-bottom: 3px solid transparent;
-}
-
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inherit;
-}
-
-#workspaces button.focused {
-    background-color: rgba(0,0,0,.7);
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-  '';
-
   # These are required for non-NixOS installations
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   home.sessionVariables.FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
@@ -288,6 +153,13 @@ window_padding_width 0 10
   };
   
   services.syncthing.enable = true;
+
+  services.waybar.enable = true;
+  services.waybar.package = pkgs.waybar.override {
+    pulseSupport = true;
+  };
+  services.waybar.config = builtins.readFile ./configs/waybar.json;
+  services.waybar.styles = builtins.readFile ./configs/waybar.css;
 
   xresources.extraConfig = ''
 ! special
