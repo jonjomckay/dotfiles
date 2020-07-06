@@ -26,7 +26,7 @@
 {
     "layer": "top",
     "modules-left": ["sway/workspaces"],
-    "modules-right": ["temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "clock"],
+    "modules-right": ["temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "tray", "clock"],
     "clock": {
         "format": "{:%b %d %Y, %H:%M:%S}",
         "interval": 1,
@@ -77,6 +77,10 @@
         "scroll-step": 1,
         "on-click": "pavucontrol"
     },
+    "tray": {
+      "icon-size": "21",
+      "spacing": 10
+    },
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -102,7 +106,7 @@
   font-size: 12px;
 }
 
-#temperature, #disk, #cpu, #memory, #pulseaudio, #clock {
+#temperature, #disk, #cpu, #memory, #pulseaudio, #tray, #clock {
   background-color: rgba(0,0,0,.7);
   border-radius: 10px;
   color: #fff;
