@@ -243,6 +243,7 @@ window_padding_width 0 10
   services.dunst.settings = {
     global = {
       alignment = "center";
+      follow = "mouse";
       format = "<b>%s</b>\n%b";
       geometry = "300x50-15+49";
       frame_width = 3;
