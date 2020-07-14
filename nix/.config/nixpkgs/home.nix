@@ -65,6 +65,10 @@
       };
     };
 
+    env = {
+      TERM = "xterm-256color";
+    };
+
     font = {
       size = 9;
 
