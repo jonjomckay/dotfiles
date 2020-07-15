@@ -147,6 +147,8 @@
   programs.zsh.enableCompletion = true;
   programs.zsh.oh-my-zsh.enable = true;
 
+  services.blueman-applet.enable = true;
+
   services.dunst.enable = true;
   services.dunst.settings = {
     global = {
