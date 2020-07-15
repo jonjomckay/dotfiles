@@ -3,15 +3,7 @@
 set -e
 
 apps=(
-    dunst
-    git
-    i3
-    kitty
-    openbox
-    polybar
-    rofi
-    xfce4-terminal
-    zsh
+  nix
 )
 
 # run the stow command for the passed in directory ($2) in location $1
