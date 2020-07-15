@@ -12,7 +12,6 @@
     pkgs.bind
     pkgs.blueman
     pkgs.bmon
-    pkgs.chromium
     pkgs.dejavu_fonts
     pkgs.docker-compose
     pkgs.fira-code

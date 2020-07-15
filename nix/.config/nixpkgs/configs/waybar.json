@@ -61,7 +61,7 @@
             "default": ["", ""]
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol"
+        "on-click": "pulsemixer"
     },
     "tray": {
       "icon-size": "21",
