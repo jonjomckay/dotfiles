@@ -5,17 +5,41 @@
 
   home.keyboard.layout = "gb";
   home.packages = [
+    pkgs.aria2
+    pkgs.awscli
+    pkgs.aws-iam-authenticator
     pkgs.bat
+    pkgs.bind
+    pkgs.blueman
+    pkgs.bmon
+    pkgs.chromium
     pkgs.dejavu_fonts
+    pkgs.docker-compose
     pkgs.fira-code
     pkgs.font-awesome
+    pkgs.gnome3.gnome-calculator
+    pkgs.gnome3.gnome-screenshot
+    pkgs.htop
+    pkgs.iotop
     pkgs.ipafont
     pkgs.jq
     pkgs.keepassxc
+    pkgs.kind
+    pkgs.maven
+    pkgs.meld
     pkgs.networkmanager-openvpn
+    pkgs.ngrok
+    pkgs.nodejs
+    pkgs.pavucontrol
     pkgs.python38
     pkgs.python38Packages.i3ipc
+    pkgs.rsync
+    pkgs.slack
+    pkgs.sublime3-dev
     pkgs.vscodium
+    pkgs.whois
+    pkgs.youtube-dl
+    pkgs.zoom-us
   ];
 
   # These are required for non-NixOS installations
