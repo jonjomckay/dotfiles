@@ -139,6 +139,9 @@
   programs.rofi.font = "hack 10";
   programs.rofi.theme = "solarized";
 
+  programs.ssh.enable = true;
+  programs.ssh.compression = true;
+
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
 
@@ -190,6 +193,8 @@
       timeout = 8;
     };
   };
+
+  services.gnome-keyring.enable = true;
 
   services.gpg-agent = {
     enable = true;
