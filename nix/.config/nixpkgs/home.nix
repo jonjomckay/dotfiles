@@ -29,7 +29,7 @@
     pkgs.networkmanager-openvpn
     pkgs.ngrok
     pkgs.nodejs
-    pkgs.pavucontrol
+    pkgs.pulsemixer
     pkgs.python38
     pkgs.python38Packages.i3ipc
     pkgs.rsync
