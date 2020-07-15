@@ -34,18 +34,18 @@
     },
     "disk": {
       "interval": 10,
-      "format": "{percentage_used}%  ",
+      "format": "Disk: {percentage_used}%  ",
       "path": "/"
     },
     "cpu": {
         "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
+        "format": "CPU: {}%  ",
+        "max-length": 15
     },
     "memory": {
         "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
+        "format": "RAM: {}%  ",
+        "max-length": 15
     },
     "pulseaudio": {
         "format": "{volume}%  {icon}",
