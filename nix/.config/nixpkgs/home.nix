@@ -246,6 +246,13 @@
     "*" = {
       xkb_layout = "gb";
     };
+
+    "1452:635:bcm5974" = {
+      accel_profile = "adaptive";
+      click_method = "button_areas";
+      natural_scroll = "enabled";
+      pointer_accel = "0.55";
+    };
   };
   wayland.windowManager.sway.config.modifier = "Mod4";
   wayland.windowManager.sway.config.output = {
