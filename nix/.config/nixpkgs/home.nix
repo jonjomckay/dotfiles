@@ -43,6 +43,7 @@
 
   # These are required for non-NixOS installations
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+  home.sessionVariables.EDITOR = "vim";
   home.sessionVariables.FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
   home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
@@ -140,6 +141,8 @@
 
   programs.starship.enable = true;
   programs.starship.enableZshIntegration = true;
+
+  programs.vim.enable = true;
 
   programs.zsh.enable = true;
   programs.zsh.enableAutosuggestions = true;
