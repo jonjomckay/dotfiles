@@ -146,6 +146,9 @@
   programs.zsh.enableAutosuggestions = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.oh-my-zsh.enable = true;
+  programs.zsh.shellAliases = {
+    cat = "bat -pp";
+  };
 
   services.blueman-applet.enable = true;
 
