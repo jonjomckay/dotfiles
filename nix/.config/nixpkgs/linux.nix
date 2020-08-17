@@ -1,6 +1,23 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.blueman
+    pkgs.bmon
+    pkgs.gnome3.gnome-calculator
+    pkgs.gnome3.gnome-screenshot
+    pkgs.iotop
+    pkgs.keepassxc
+    pkgs.meld
+    pkgs.networkmanager-openvpn
+    pkgs.pulsemixer
+    pkgs.python38
+    pkgs.python38Packages.i3ipc
+    pkgs.slack
+    pkgs.sublime3-dev
+    pkgs.vscodium
+  ];
+
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
   home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
@@ -147,4 +164,4 @@
   };
 
   xresources.extraConfig = builtins.readFile ./configs/xresources.conf;
-};
+}

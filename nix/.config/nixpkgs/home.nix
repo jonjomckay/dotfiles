@@ -1,14 +1,16 @@
 { config, lib, pkgs, ... }:
 
 # Thanks to https://www.reddit.com/r/NixOS/comments/ae9q01/how_to_os_from_inside_a_nix_file/ednqzap/
+# echo "{ hostname = \"$(hostname)\"; operatingSystem = \"$(uname -s | awk '{ print $1 }' | sed 's/#.*-//')\"; }" > ~/.config/nixpkgs/machine.nix 
 let
   machine = import ./machine.nix;
-  isArch = machine.operatingSystem == "Arch Linux";
+  isLinux = machine.operatingSystem == "Linux";
   isDarwin = machine.operatingSystem == "Darwin";
 in
 {
   imports = [ ./waybar.nix ]
-    ++ (if isArch then [ ./linux.nix ] else [ ]);
+    ++ (if isDarwin then [ ./darwin.nix ] else [ ])
+    ++ (if isLinux then [ ./linux.nix ] else [ ]);
 
   home.keyboard.layout = "gb";
   home.packages = [
@@ -32,24 +34,7 @@ in
     pkgs.rsync
     pkgs.whois
     pkgs.youtube-dl
-  ]
-  ++ lib.optional isArch [
-    pkgs.blueman
-    pkgs.bmon
-    pkgs.gnome3.gnome-calculator
-    pkgs.gnome3.gnome-screenshot
-    pkgs.iotop
-    pkgs.keepassxc
-    pkgs.meld
-    pkgs.networkmanager-openvpn
-    pkgs.pulsemixer
-    pkgs.python38
-    pkgs.python38Packages.i3ipc
-    pkgs.slack
-    pkgs.sublime3-dev
-    pkgs.vscodium
   ];
-  # ++ lib.optional isDarwin [ ];
 
   # These are required for non-NixOS installations
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
