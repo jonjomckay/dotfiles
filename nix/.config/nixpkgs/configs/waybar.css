@@ -3,12 +3,16 @@
   font-size: 12px;
 }
 
-#temperature, #disk, #cpu, #memory, #pulseaudio, #tray, #clock {
+#battery, #temperature, #disk, #cpu, #memory, #pulseaudio, #tray, #clock {
   background-color: rgba(0,0,0,.7);
   border-radius: 10px;
   color: #fff;
   padding: 8px 12px;
   margin: 15px 10px 0 0;
+}
+
+#battery.charging {
+  color: #63B3ED;
 }
 
 #workspaces {

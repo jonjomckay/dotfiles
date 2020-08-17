@@ -1,11 +1,22 @@
 {
     "layer": "top",
     "modules-left": ["sway/workspaces"],
-    "modules-right": ["temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "tray", "clock"],
+    "modules-right": ["battery", "temperature#cpu", "temperature#gpu", "disk", "cpu", "memory", "pulseaudio", "tray", "clock"],
     "clock": {
         "format": "{:%b %d %Y, %H:%M:%S}",
         "interval": 1,
         "tooltip": false
+    },
+    "battery": {
+      "bat": "BAT0",
+      "interval": 10,
+      "states": {
+          "warning": 30,
+          "critical": 15
+      },
+      "format": "<span color=\"#FFF\">{capacity}%</span> {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "max-length": 25
     },
     "temperature#cpu": {
       "interval": 2,
@@ -23,18 +34,18 @@
     },
     "disk": {
       "interval": 10,
-      "format": "{percentage_used}%  ",
+      "format": "Disk: {percentage_used}%  ",
       "path": "/"
     },
     "cpu": {
         "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
+        "format": "CPU: {}%  ",
+        "max-length": 15
     },
     "memory": {
         "interval": 2,
-        "format": "{}%  ",
-        "max-length": 10
+        "format": "RAM: {}%  ",
+        "max-length": 15
     },
     "pulseaudio": {
         "format": "{volume}%  {icon}",
@@ -50,7 +61,7 @@
             "default": ["", ""]
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol"
+        "on-click": "pulsemixer"
     },
     "tray": {
       "icon-size": "21",
