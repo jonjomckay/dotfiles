@@ -27,6 +27,7 @@ in
     pkgs.ipafont
     pkgs.jq
     pkgs.kind
+    pkgs.kubectl
     pkgs.maven
     pkgs.nixpkgs-fmt
     pkgs.ngrok
