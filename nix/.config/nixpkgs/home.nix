@@ -6,6 +6,12 @@ let
   machine = import ./machine.nix;
   isLinux = machine.operatingSystem == "Linux";
   isDarwin = machine.operatingSystem == "Darwin";
+  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
+    url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
+  }) {
+    doomPrivateDir = ./doom.d;  # Directory containing your config.el init.el
+                                # and packages.el files
+  };
 in
 {
   imports = [ ./waybar.nix ]
@@ -14,6 +20,7 @@ in
 
   home.keyboard.layout = "gb";
   home.packages = [
+    doom-emacs
     pkgs.aria2
     pkgs.awscli
     pkgs.aws-iam-authenticator
@@ -107,6 +114,10 @@ in
       };
     };
   };
+
+  home.file.".emacs.d/init.el".text = ''
+      (load "default.el")
+  '';
 
   programs.git.enable = true;
   programs.git.userEmail = "jonjo@jonjomckay.com";
