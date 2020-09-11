@@ -15,7 +15,6 @@
     pkgs.python38Packages.i3ipc
     pkgs.slack
     pkgs.sublime3-dev
-    pkgs.vscodium
   ];
 
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
@@ -34,6 +33,17 @@
   programs.rofi.enable = true;
   programs.rofi.font = "Fira Code Retina 10";
   programs.rofi.theme = "solarized";
+
+  programs.vscode.enable = true;
+  programs.vscode.package = pkgs.vscodium;
+  programs.vscode.extensions = [
+    pkgs.vscode-extensions.bbenoist.Nix
+  ];
+  programs.vscode.userSettings = {
+    "editor.fontFamily" = "'Fira Code'";
+    "editor.fontSize" = 12;
+    "editor.minimap.enabled" = false;
+  };
 
   programs.zsh.initExtra = ''
   if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
