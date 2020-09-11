@@ -45,7 +45,7 @@
     pkgs.vscode-extensions.bbenoist.Nix
   ];
   programs.vscode.userSettings = {
-    "editor.fontFamily" = "'Fira Code'";
+    "editor.fontFamily" = "'Fira Code Retina'";
     "editor.fontSize" = 12;
     "editor.minimap.enabled" = false;
   };
