@@ -6,6 +6,7 @@
     pkgs.bmon
     pkgs.gnome3.gnome-calculator
     pkgs.gnome3.gnome-screenshot
+    pkgs.grim
     pkgs.iotop
     pkgs.keepassxc
     pkgs.meld
@@ -14,8 +15,10 @@
     pkgs.python38
     pkgs.python38Packages.i3ipc
     pkgs.slack
+    pkgs.slurp
     pkgs.sublime3-dev
     pkgs.vscodium
+    pkgs.xdg-user-dirs
   ];
 
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
@@ -161,6 +164,7 @@
   in lib.mkOptionDefault {
     "${modifier}+0" = "workspace number 1";
     "${modifier}+space" = "exec rofi -show drun";
+    "Print" = "exec grim -g \"$(slurp; sleep 5)\" $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')";
   };
 
   xresources.extraConfig = builtins.readFile ./configs/xresources.conf;
