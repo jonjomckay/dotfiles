@@ -16,8 +16,6 @@
     pkgs.python38Packages.i3ipc
     pkgs.slack
     pkgs.slurp
-    pkgs.sublime3-dev
-    pkgs.vscodium
     pkgs.xdg-user-dirs
   ];
 
@@ -39,6 +37,23 @@
   programs.rofi.theme = "solarized";
   programs.rofi.extraConfig = ''
     rofi.show-icons: true
+  '';
+
+  programs.vscode.enable = true;
+  programs.vscode.package = pkgs.vscodium;
+  programs.vscode.extensions = [
+    pkgs.vscode-extensions.bbenoist.Nix
+  ];
+  programs.vscode.userSettings = {
+    "editor.fontFamily" = "'Fira Code'";
+    "editor.fontSize" = 12;
+    "editor.minimap.enabled" = false;
+  };
+
+  programs.zsh.initExtra = ''
+  if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    exec nixGL sway
+  fi
   '';
 
   services.blueman-applet.enable = true;
