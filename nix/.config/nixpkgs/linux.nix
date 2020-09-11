@@ -35,6 +35,12 @@
   programs.rofi.font = "Fira Code Retina 10";
   programs.rofi.theme = "solarized";
 
+  programs.zsh.initExtra = ''
+  if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    exec nixGL sway
+  fi
+  '';
+
   services.blueman-applet.enable = true;
 
   services.dunst.enable = true;
