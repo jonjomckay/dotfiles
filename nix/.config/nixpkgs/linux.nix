@@ -14,7 +14,6 @@
     pkgs.python38
     pkgs.python38Packages.i3ipc
     pkgs.slack
-    pkgs.sublime3-dev
   ];
 
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
