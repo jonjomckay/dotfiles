@@ -37,6 +37,9 @@
   programs.rofi.enable = true;
   programs.rofi.font = "Fira Code Retina 10";
   programs.rofi.theme = "solarized";
+  programs.rofi.extraConfig = ''
+    rofi.show-icons: true
+  '';
 
   services.blueman-applet.enable = true;
 
