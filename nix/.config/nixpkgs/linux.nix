@@ -32,6 +32,8 @@
   programs.keychain.enable = true;
   programs.keychain.enableXsessionIntegration = true;
 
+  programs.ncmpcpp.enable = true;
+
   programs.rofi.enable = true;
   programs.rofi.font = "Fira Code Retina 10";
   programs.rofi.theme = "solarized";
@@ -106,6 +108,11 @@
   services.gpg-agent = {
     enable = true;
   };
+
+  services.mpd.enable = true;
+  services.mpd.musicDirectory = "/mnt/music";
+
+  services.mpdris2.enable = true;
 
   services.network-manager-applet = {
     enable = true;
