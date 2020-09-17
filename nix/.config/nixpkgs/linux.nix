@@ -117,8 +117,104 @@
   services.waybar.package = pkgs.waybar.override {
     pulseSupport = true;
   };
-  services.waybar.config = builtins.readFile ./configs/waybar.json;
+  # services.waybar.config = builtins.readFile ./configs/waybar.json;
   services.waybar.styles = builtins.readFile ./configs/waybar.css;
+
+  services.waybar.extraConfig = {
+    layer = "top";
+    
+    modules-left = ["sway/workspaces"];
+    modules-right = ["custom/waybar-media" "temperature#cpu" "temperature#gpu" "disk" "cpu" "memory" "pulseaudio" "tray" "clock"];
+    
+    clock = {
+      format = "{:%b %d %Y, %H:%M:%S}";
+      interval = 1;
+      tooltip = false;
+    };
+    
+    "custom/waybar-media" = {
+      return-type = "json";
+      exec = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} status";
+      on-click = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} playpause";
+      on-scroll-up = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} previous";
+      on-scroll-down = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} next";
+      escape = true;
+    };
+
+    "temperature#cpu" = {
+      interval = 2;
+      hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+      critical-threshold = 80;
+      format-critical = " CPU: {temperatureC}°C";
+      format = " CPU: {temperatureC}°C";
+    };
+
+    "temperature#gpu" = {
+      interval = 2;
+      hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
+      critical-threshold = 80;
+      format-critical = " GPU: {temperatureC}°C";
+      format = " GPU: {temperatureC}°C";
+    };
+
+    "disk" = {
+      interval = 10;
+      format = " {percentage_used}%";
+      path = "/";
+    };
+
+    "cpu" = {
+        interval = 2;
+        format = " {}%";
+        max-length = 10;
+    };
+
+    "memory" = {
+        interval = 2;
+        format = " {}%";
+        max-length = 10;
+    };
+
+    "pulseaudio" = {
+        format = "{icon} {volume}%";
+        format-bluetooth = "{icon}  {volume}%";
+        format-muted = "";
+        format-icons = {
+            headphone = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = ["" ""];
+        };
+        scroll-step = 1;
+        on-click = "pavucontrol";
+    };
+
+    "tray" = {
+      icon-size = "21";
+      spacing = 10;
+    };
+
+    "sway/workspaces" = {
+      disable-scroll = true;
+      all-outputs = false;
+      format = "{name}:  {icon}";
+      format-icons = {
+          "1" = "";
+          "2" = "";
+          "3" = "";
+          "4" = "";
+          "5" = "";
+          "6" = "";
+          "7" = "";
+          urgent = "";
+          focused = "";
+          default = "";
+      };
+    };
+  };
 
   wayland.windowManager.sway.enable = true;
   wayland.windowManager.sway.config.bars = [];

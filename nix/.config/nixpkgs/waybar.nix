@@ -10,7 +10,7 @@ let
     either str (either bool (either int (listOf str)));
 
   configFile = pkgs.writeText "config"
-    (cfg.config);
+    (builtins.toJSON cfg.extraConfig);
 
   stylesFile = pkgs.writeText "style.css"
     (cfg.styles);
@@ -33,20 +33,12 @@ in {
         '';
       };
 
-      config = mkOption {
-        type = types.lines;
-        description = "Main configuration.";
-        default = "";
-        example = ''
-          {
-            "layer": "top",
-            "position": "bottom",
-
-            "modules-left": [
-              "sway/workspaces",
-              "custom/right-arrow-dark"
-            ]
-          }
+      extraConfig = mkOption {
+        type = types.attrs;
+        default = { };
+        example = { layer = "top"; };
+        description = ''
+          JSON config that will override the default Waybar configuration.
         '';
       };
 
