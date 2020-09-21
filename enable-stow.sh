@@ -15,6 +15,8 @@ stowit() {
     stow -v -R -t ${HOME} ${app}
 }
 
+mkdir -p ${HOME}/.config
+
 echo ""
 echo "Stowing apps for user: ${whoami}"
 
