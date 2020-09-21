@@ -261,6 +261,14 @@
       xkb_layout = "gb";
     };
 
+    "2:7:SynPS/2_Synaptics_TouchPad" = {
+      accel_profile = "adaptive";
+      click_method = "button_areas";
+      natural_scroll = "enabled";
+      pointer_accel = "0.55";
+      tap = "enabled";
+    };
+
     "1452:635:bcm5974" = {
       accel_profile = "adaptive";
       click_method = "button_areas";
