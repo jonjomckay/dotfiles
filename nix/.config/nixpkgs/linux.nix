@@ -260,11 +260,15 @@
       xkb_layout = "gb";
     };
 
+    "2:10:TPPS/2_Elan_TrackPoint" = {
+      pointer_accel = "0.1";
+    };
+
     "2:7:SynPS/2_Synaptics_TouchPad" = {
       accel_profile = "adaptive";
       click_method = "button_areas";
       natural_scroll = "enabled";
-      pointer_accel = "0.55";
+      pointer_accel = "0.6";
       tap = "enabled";
     };
 
