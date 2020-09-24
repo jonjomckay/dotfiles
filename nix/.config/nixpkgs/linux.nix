@@ -17,6 +17,7 @@
     pkgs.slack
     pkgs.slurp
     pkgs.xdg-user-dirs
+    pkgs.yarn
   ];
 
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
