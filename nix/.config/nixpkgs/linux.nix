@@ -2,7 +2,6 @@
 
 {
   home.packages = [
-    pkgs.blueman
     pkgs.bmon
     pkgs.brightnessctl
     pkgs.gnome3.gnome-calculator
