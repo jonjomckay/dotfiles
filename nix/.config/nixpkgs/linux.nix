@@ -23,15 +23,15 @@
   home.sessionVariables.LD_LIBRARY_PATH = "$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH";
   home.sessionVariables.LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
+  # This is only required because the gnome-keyring service doesn't seem to set it properly yet
+  home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+
   programs.feh.enable = true;
 
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-devedition-bin;
   };
-
-  programs.keychain.enable = true;
-  programs.keychain.enableXsessionIntegration = true;
 
   programs.ncmpcpp.enable = true;
 
@@ -105,6 +105,7 @@
   };
 
   services.gnome-keyring.enable = true;
+  services.gnome-keyring.components = ["pkcs11" "secrets" "ssh"];
 
   services.gpg-agent = {
     enable = true;
