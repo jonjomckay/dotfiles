@@ -133,7 +133,7 @@
     layer = "top";
     
     modules-left = ["sway/workspaces"];
-    modules-right = ["custom/waybar-media" "temperature#cpu" "temperature#gpu" "disk" "cpu" "memory" "pulseaudio" "tray" "clock"];
+    modules-right = ["custom/waybar-media" "battery" "temperature#cpu" "temperature#gpu" "disk" "cpu" "memory" "pulseaudio" "tray" "clock"];
     
     clock = {
       format = "{:%b %d %Y, %H:%M:%S}";
@@ -148,6 +148,20 @@
       on-scroll-up = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} previous";
       on-scroll-down = "${(pkgs.python38.withPackages (ps: [ps.pydbus ps.psutil])).interpreter} ${./waybar-media.py} next";
       escape = true;
+    };
+
+    "battery" = {
+      "bat" = "BAT0";
+      "interval" = 60;
+      "states" = {
+        "warning" = 30;
+        "critical" = 15;
+      };
+      "format" = "{icon} {capacity}% ({time} remaining)";
+      "format-charging" = "{icon} {capacity}% ({time} until full)";
+      "format-icons" = ["" "" "" "" ""];
+      "format-time" = "{H}:{M}";
+      "max-length" = 25;
     };
 
     "temperature#cpu" = {
